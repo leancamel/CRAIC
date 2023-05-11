@@ -33,6 +33,8 @@
 #include "voltage.h"
 #include "usart.h"
 #include "tim.h"
+#include "OLED.h"
+#include "key.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -154,16 +156,15 @@ void MX_FREERTOS_Init(void) {
 void StartUserTask(void *argument)
 {
   /* USER CODE BEGIN StartUserTask */
+	// OLED_Init();
+	// OLED_ShowString(1,1,"HelloWorld!");
 	/* Infinite loop */
 	for (;;)
 	{
-		// if(Voltage_Get() < 8.0f)
-		// 	Buzzer_On();
-		// else
-		// 	Buzzer_Off();
 		// printf("%f,%f\n",Car_Structure.wz[0],Car_Structure.angle);
 		// Bluetooth_Send("%f %hd",Car_Structure.angle,Car_Structure.wz[0]);
-		Bluetooth_Send("%f %f %f",Car_Structure.speed_L,Car_Structure.speed_R,Car_Structure.vx_set.float_data);
+		Key_Time_Count();
+		printf("%f, %f, %f\n",Car_Structure.speed_L,Car_Structure.speed_R,Car_Structure.vx_set.float_data);
 		osDelay(10);
 	}
   /* USER CODE END StartUserTask */
@@ -179,12 +180,12 @@ void StartUserTask(void *argument)
 void StartFeedBackTask(void *argument)
 {
   /* USER CODE BEGIN StartFeedBackTask */
-	MPU6050_Init();
+	// MPU6050_Init();
 	Motor_Init();
 	/* Infinite loop */
 	for (;;)
 	{
-		MPU6050_GetData();
+		// MPU6050_GetData();
 		Get_Car_Speed();
 		osDelay(10);
 	}
@@ -205,7 +206,17 @@ void StartMotorTask(void *argument)
 	/* Infinite loop */
 	for (;;)
 	{
-		Motor_Drive();
+		Motor_Time_Count();
+		if(Car_Structure.motor_on)
+		{
+			Motor_Drive();
+			LED2_On(1);
+		}
+		else
+		{
+			Motor_Stop();
+			LED2_On(0);
+		}
 		osDelay(1);
 	}
   /* USER CODE END StartMotorTask */

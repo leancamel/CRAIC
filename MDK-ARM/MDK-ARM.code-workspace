@@ -6,7 +6,7 @@
     ],
 	"settings": {
 		"files.associations": {
-			"usart.h": "c"
+			"key.h": "c"
 		}
 	},
     "extensions": {}

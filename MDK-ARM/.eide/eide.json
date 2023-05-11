@@ -85,19 +85,22 @@
                         "path": "../Core/Src/Hardware/buzzer.c"
                       },
                       {
+                        "path": "../Core/Src/Hardware/key.c"
+                      },
+                      {
                         "path": "../Core/Src/Hardware/led.c"
                       },
                       {
                         "path": "../Core/Src/Hardware/motor.c"
                       },
                       {
-                        "path": "../Core/Src/Hardware/voltage.c"
-                      },
-                      {
                         "path": "../Core/Src/Hardware/MPU6050.c"
                       },
                       {
-                        "path": "../Core/Src/Hardware/MyI2C.c"
+                        "path": "../Core/Src/Hardware/OLED.c"
+                      },
+                      {
+                        "path": "../Core/Src/Hardware/voltage.c"
                       }
                     ],
                     "folders": []
@@ -112,6 +115,15 @@
         "name": "Drivers",
         "files": [],
         "folders": [
+          {
+            "name": "CMSIS",
+            "files": [
+              {
+                "path": "../Core/Src/system_stm32f1xx.c"
+              }
+            ],
+            "folders": []
+          },
           {
             "name": "STM32F1xx_HAL_Driver",
             "files": [
@@ -162,15 +174,6 @@
               },
               {
                 "path": "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c"
-              }
-            ],
-            "folders": []
-          },
-          {
-            "name": "CMSIS",
-            "files": [
-              {
-                "path": "../Core/Src/system_stm32f1xx.c"
               }
             ],
             "folders": []

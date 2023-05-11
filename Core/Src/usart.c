@@ -22,7 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 #include "motor.h"
-uint8_t RX_Buff[11] = {0};
+uint8_t RX_Buff[9] = {0};
 
 int fputc(int ch, FILE *f)
 {
@@ -228,26 +228,35 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 /* USER CODE BEGIN 1 */
 void Msg_Deal(void)
 {
-	if(RX_Buff[0] != 0xA5 || RX_Buff[10] != 0x5A)
+	if(RX_Buff[0] != 0xA5 || RX_Buff[8] != 0x5A)
+	{
+		for(short i=0;i<11;i++)
+			RX_Buff[i] = 0;
+		HAL_UART_Receive_DMA(&huart3,RX_Buff,sizeof(RX_Buff));
 		return;
+	}
 	uint8_t sum = 0x00;
-	for(short i=1;i<9;i++)
+	for(short i=1;i<7;i++)
 		sum += RX_Buff[i];
-	if(sum != RX_Buff[9])
+	if(sum != RX_Buff[7])
+	{
+		for(short i=0;i<9;i++)
+			RX_Buff[i] = 0;
+		HAL_UART_Receive_DMA(&huart3,RX_Buff,sizeof(RX_Buff));
 		return;
+	}
 
 	Car_Structure.vx_set.byte_data[0] = RX_Buff[1];
 	Car_Structure.vx_set.byte_data[1] = RX_Buff[2];
 	Car_Structure.vx_set.byte_data[2] = RX_Buff[3];
 	Car_Structure.vx_set.byte_data[3] = RX_Buff[4];
 
-	Car_Structure.turn_angle.byte_data[0] = RX_Buff[5];
-	Car_Structure.turn_angle.byte_data[1] = RX_Buff[6];
-	Car_Structure.turn_angle.byte_data[2] = RX_Buff[7];
-	Car_Structure.turn_angle.byte_data[3] = RX_Buff[8];
+	Car_Structure.turn_pwm = ((RX_Buff[5] << 8) | RX_Buff[6]);
 
-	for(short i=0;i<11;i++)
+	for(short i=0;i<9;i++)
 		RX_Buff[i] = 0;
 	HAL_UART_Receive_DMA(&huart3,RX_Buff,sizeof(RX_Buff));
+
+	Car_Structure.motor_time = 0;
 }
 /* USER CODE END 1 */

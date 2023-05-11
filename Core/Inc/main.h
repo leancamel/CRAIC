@@ -57,6 +57,8 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define OLED_SCL_Pin GPIO_PIN_14
+#define OLED_SCL_GPIO_Port GPIOC
 #define Voltage_Pin GPIO_PIN_1
 #define Voltage_GPIO_Port GPIOC
 #define LED1_Pin GPIO_PIN_2
@@ -65,6 +67,7 @@ void Error_Handler(void);
 #define LED2_GPIO_Port GPIOC
 #define Key_Pin GPIO_PIN_0
 #define Key_GPIO_Port GPIOA
+#define Key_EXTI_IRQn EXTI0_IRQn
 #define Motor_L1_Pin GPIO_PIN_6
 #define Motor_L1_GPIO_Port GPIOA
 #define Motor_L2_Pin GPIO_PIN_7
@@ -73,10 +76,10 @@ void Error_Handler(void);
 #define Motor_R1_GPIO_Port GPIOB
 #define Motor_R2_Pin GPIO_PIN_1
 #define Motor_R2_GPIO_Port GPIOB
-#define SCL_Pin GPIO_PIN_14
-#define SCL_GPIO_Port GPIOB
-#define SDA_Pin GPIO_PIN_15
-#define SDA_GPIO_Port GPIOB
+#define MPU_SCL_Pin GPIO_PIN_14
+#define MPU_SCL_GPIO_Port GPIOB
+#define MPU_SDA_Pin GPIO_PIN_15
+#define MPU_SDA_GPIO_Port GPIOB
 #define Encoder_R1_Pin GPIO_PIN_6
 #define Encoder_R1_GPIO_Port GPIOC
 #define Encoder_R2_Pin GPIO_PIN_7
@@ -93,6 +96,8 @@ void Error_Handler(void);
 #define Bluetooth_TX_GPIO_Port GPIOC
 #define Bluetooth_RX_Pin GPIO_PIN_2
 #define Bluetooth_RX_GPIO_Port GPIOD
+#define OLED_SDA_Pin GPIO_PIN_5
+#define OLED_SDA_GPIO_Port GPIOB
 #define Encoder_L1_Pin GPIO_PIN_6
 #define Encoder_L1_GPIO_Port GPIOB
 #define Encoder_L2_Pin GPIO_PIN_7
